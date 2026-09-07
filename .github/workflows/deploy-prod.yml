@@ -1,0 +1,99 @@
+name: Deploy prod (SmarterASP WebDeploy)
+
+# Draft for https://github.com/vdiamond/vfd/issues/3
+# Gate: GitHub environment `prod` (required reviewer = Victor).
+# Do not run until Victor types APPROVE DEPLOY in chat (and approves the environment).
+# Secrets: names only below — values live in GitHub Environment secrets / SmarterASP.
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-prod
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Publish and WebDeploy
+    runs-on: windows-latest
+    environment: prod
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore
+        run: dotnet restore Vfd.slnx
+
+      - name: Build
+        run: dotnet build Vfd.slnx -c Release --no-restore
+
+      - name: Publish
+        run: dotnet publish Vfd.Web/Vfd.Web.csproj -c Release -o ./publish --no-build
+
+      - name: WebDeploy to SmarterASP
+        shell: pwsh
+        env:
+          WEBSITE_NAME: ${{ secrets.WEBSITE_NAME }}
+          SERVER_COMPUTER_NAME: ${{ secrets.SERVER_COMPUTER_NAME }}
+          SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
+          SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
+        run: |
+          if (-not $env:WEBSITE_NAME -or -not $env:SERVER_COMPUTER_NAME -or -not $env:SERVER_USERNAME -or -not $env:SERVER_PASSWORD) {
+            throw "Missing one or more prod environment secrets (WEBSITE_NAME, SERVER_COMPUTER_NAME, SERVER_USERNAME, SERVER_PASSWORD)."
+          }
+
+          $msdeploy = @(
+            "${env:ProgramFiles}\IIS\Microsoft Web Deploy V3\msdeploy.exe",
+            "${env:ProgramFiles(x86)}\IIS\Microsoft Web Deploy V3\msdeploy.exe"
+          ) | Where-Object { Test-Path $_ } | Select-Object -First 1
+
+          if (-not $msdeploy) { throw "msdeploy.exe not found on runner" }
+          Write-Host "Using msdeploy: $msdeploy"
+          Write-Host "Target site: $env:WEBSITE_NAME"
+
+          $sourcePath = Join-Path $PWD "publish"
+          if (-not (Test-Path $sourcePath)) { throw "Publish output missing: $sourcePath" }
+
+          # Sync publish output. Skip App_Data so production media/DB files are not overwritten.
+          # DoNotDeleteRule keeps extra remote files that are not in the package.
+          & $msdeploy `
+            -verb:sync `
+            "-source:contentPath=$sourcePath" `
+            "-dest:contentPath=$($env:WEBSITE_NAME),ComputerName=$($env:SERVER_COMPUTER_NAME),UserName=$($env:SERVER_USERNAME),Password=$($env:SERVER_PASSWORD),AuthType=Basic" `
+            -allowUntrusted `
+            -enableRule:AppOffline `
+            -enableRule:DoNotDeleteRule `
+            "-skip:objectName=dirPath,absolutePath=App_Data" `
+            "-skip:objectName=dirPath,absolutePath=App_Data\\.*"
+
+          if ($LASTEXITCODE -ne 0) { throw "msdeploy failed with exit code $LASTEXITCODE" }
+
+  smoke:
+    name: Post-deploy smoke
+    needs: deploy
+    runs-on: ubuntu-latest
+    environment: prod
+    steps:
+      - name: HTTP checks
+        env:
+          SITE_URL: ${{ vars.SITE_URL }}
+        run: |
+          set -euo pipefail
+          BASE="${SITE_URL:-https://valuefromdigital.com}"
+          BASE="${BASE%/}"
+
+          echo "Checking $BASE/"
+          code=$(curl -sS -o /tmp/root.html -w "%{http_code}" -L --max-time 60 "$BASE/")
+          test "$code" = "200"
+
+          echo "Checking $BASE/admin"
+          code=$(curl -sS -o /tmp/admin.html -w "%{http_code}" -L --max-time 60 "$BASE/admin")
+          # Orchard admin may redirect to login; accept 200 or 302
+          case "$code" in 200|302) ;; *) echo "Unexpected /admin status: $code"; exit 1 ;; esac
+
+          echo "Smoke HTTP checks passed for $BASE"
