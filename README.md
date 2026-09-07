@@ -35,9 +35,12 @@ When moving off per-tenant SQLite to a shared SQL database, use table prefixes s
 
 ## CI
 
-GitHub Actions (`.github/workflows/ci.yml`) on `windows-latest`: restore → build → test (if present) → publish → upload artifact. No WebDeploy.
+Intended GitHub Actions workflow (restore → build → test if present → publish → upload artifact on `windows-latest`; **no WebDeploy**) lives at `ci/github-actions-ci.yml`.
+
+Copy/rename it to `.github/workflows/ci.yml` to enable Actions (writing under `.github/workflows/` requires a GitHub token with the `workflow` scope).
 
 ## Solution layout
 
 - `Vfd.slnx` — solution
 - `Vfd.Web/` — Orchard Core CMS web app (`occms` template, Orchard 3.0.1)
+- `ci/github-actions-ci.yml` — CI workflow source (move to `.github/workflows/ci.yml`)
