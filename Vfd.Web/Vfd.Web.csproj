@@ -12,6 +12,13 @@
     <Folder Include="Localization\" />
   </ItemGroup>
 
+  <!-- Ensure tracked wwwroot placeholder is always published (empty dirs omit from packages) -->
+  <ItemGroup>
+    <Content Update="wwwroot\.gitkeep">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
   <Target Name="EnsureWwwRootExists" BeforeTargets="Build;Publish">
     <MakeDir Directories="$(MSBuildProjectDirectory)\wwwroot;$(MSBuildProjectDirectory)\Localization" />
   </Target>

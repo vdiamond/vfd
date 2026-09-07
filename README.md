@@ -25,22 +25,22 @@ dotnet run --project Vfd.Web
 2. For the **Default** tenant, choose the **Agency** recipe (not SaaS).
 3. After setup, sign in at `/admin`.
 4. Go to **Configuration → Features** and enable **OrchardCore.Tenants**.
-5. Configure hostnames for Default: `valuefromdigital.com` and `localhost`.
+5. Configure hostnames for Default: `valuefromdigital.com` and `localhost` (during first prod setup on a temp URL, leave **RequestUrlHost** blank/catch-all until DNS/SSL works).
 
 Local data uses **SQLite** under `App_Data/` (gitignored). Do not commit connection strings, admin passwords, or deployment secrets.
 
+**Publish must include `wwwroot`** (tracked `Vfd.Web/wwwroot/.gitkeep`) so `WebRootPath` resolves — ImageSharp/Media cache fails with HTTP 500 if the folder is missing from the deploy package.
+
 ## Shared SQL later (guidance only)
 
-When moving off per-tenant SQLite to a shared SQL database, use table prefixes so tenants do not collide. See commented notes in `Vfd.Web/appsettings.json` / `appsettings.Development.json` for `OrchardCore_Tenants` (`RequireTablePrefix`, `TablePrefixPattern` with `{{ ShellSettings.Name }}`). Put real connection strings in environment variables or user secrets — never in the repo.
+When moving off per-tenant SQLite to a shared SQL database, use table prefixes so tenants do not collide. See `OrchardCore:OrchardCore_Tenants` in `Vfd.Web/appsettings.json` (`RequireTablePrefix` stays **false** until a second tenant shares the DB). Put real connection strings in environment variables or user secrets — never in the repo.
 
 ## CI
 
-Intended GitHub Actions workflow (restore → build → test if present → publish → upload artifact on `windows-latest`; **no WebDeploy**) lives at `ci/github-actions-ci.yml`.
-
-Copy/rename it to `.github/workflows/ci.yml` to enable Actions (writing under `.github/workflows/` requires a GitHub token with the `workflow` scope).
+GitHub Actions CI (restore → build → test if present → publish → upload artifact on `windows-latest`; **no WebDeploy**) lives at `.github/workflows/ci.yml`.
 
 ## Solution layout
 
 - `Vfd.slnx` — solution
 - `Vfd.Web/` — Orchard Core CMS web app (`occms` template, Orchard 3.0.1)
-- `ci/github-actions-ci.yml` — CI workflow source (move to `.github/workflows/ci.yml`)
+- `.github/workflows/ci.yml` — CI build/publish

@@ -1,0 +1,1 @@
+Placeholder so wwwroot is included in publish output (ImageSharp / Media cache needs WebRootPath).
