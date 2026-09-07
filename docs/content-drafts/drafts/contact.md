@@ -1,6 +1,6 @@
 # Contact
 
-**Status:** unpublished  
+**Status:** approved for publish (Victor 2026-09-07); Portfolio/Clients remain hidden  
 **Content type:** Page  
 **Path:** `/contact`
 
@@ -27,12 +27,14 @@ No obligation. No invented proposal theatre.
 
 ## How to reach us
 
-**LinkedIn (preferred for now):**  
+**Email:** [sales@valuefromdigital.com](mailto:sales@valuefromdigital.com)
+
+**LinkedIn:**  
 Message Victor Diamond — https://www.linkedin.com/in/victor-diamond-0a5b81/
 
-**Email:** TBD — add when Victor confirms the public address.
-
 **Calendar booking link:** None published. Do not invent one.
+
+Prefer a plain **mailto** CTA over an Orchard form until SMTP is configured.
 
 ---
 
@@ -44,8 +46,9 @@ If you serve Government of Canada clients and want to subcontract expertise, say
 
 ## CTA
 
-**Primary:** Message Victor on LinkedIn  
-**Secondary:** Return to [services](/#services) or [approach](/approach)
+**Primary:** Email sales@valuefromdigital.com (`mailto:sales@valuefromdigital.com`)  
+**Secondary:** Message Victor on LinkedIn  
+**Tertiary:** Return to [services](/#services) or [approach](/approach)
 
 ---
 
