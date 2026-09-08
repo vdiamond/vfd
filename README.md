@@ -26,6 +26,7 @@ dotnet run --project Vfd.Web
 3. After setup, sign in at `/admin`.
 4. Go to **Configuration → Features** and enable **OrchardCore.Tenants**.
 5. Configure hostnames for Default: `valuefromdigital.com` and `localhost` (during first prod setup on a temp URL, leave **RequestUrlHost** blank/catch-all until DNS/SSL works).
+6. Enable **VFD Theme** (Design → Themes) and run the **VFD Branding** recipe (or paste `Vfd.Theme/Recipes/Snippets/landingpage.liquid` into Design → Templates → `Content__LandingPage`). See `Vfd.Theme/README.md`.
 
 Local data uses **SQLite** under `App_Data/` (gitignored). Do not commit connection strings, admin passwords, or deployment secrets.
 
@@ -41,6 +42,17 @@ GitHub Actions CI (restore → build → test if present → publish → upload 
 
 ## Solution layout
 
-- `Vfd.slnx` — solution
+- `Vfd.slnx` — solution (`Vfd.Web` + `Vfd.Theme`)
 - `Vfd.Web/` — Orchard Core CMS web app (`occms` template, Orchard 3.0.1)
+- `Vfd.Theme/` — VFD branding theme (bases on TheAgencyTheme): logo, favicons, digital hero, Digital Workspace landing Liquid + branding recipe
 - `.github/workflows/ci.yml` — CI build/publish
+
+## Branding / theme (#9)
+
+Live Agency leftovers are in the Liquid template `Content__LandingPage` (not CMS bags). After merge/deploy:
+
+1. Activate **VFD Theme** on Default.
+2. Run recipe **VFD Branding** (updates `Content__LandingPage` from `Vfd.Theme/Recipes/Snippets/landingpage.liquid`) **or** paste that snippet in Design → Templates.
+3. Require Victor **APPROVE DEPLOY** before production.
+
+Copy source of truth: Jess comment on issue #9 (Digital Workspace strings).
