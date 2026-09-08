@@ -1,0 +1,33 @@
+{
+  "name": "VFD Branding",
+  "displayName": "VFD Branding (LandingPage template)",
+  "description": "Updates the Content__LandingPage Liquid template with VFD Digital Workspace copy, contact CTA (mailto/LinkedIn), and Agency leftover cleanup. Does not change content bags or live CMS fields beyond the template. Run after enabling VFD Theme on Default.",
+  "author": "Value From Digital",
+  "website": "https://valuefromdigital.com",
+  "version": "1.0.0",
+  "issetuprecipe": false,
+  "categories": [ "vfd", "branding" ],
+  "tags": [ "vfd", "theme", "landingpage" ],
+  "steps": [
+    {
+      "name": "feature",
+      "enable": [
+        "OrchardCore.Templates",
+        "OrchardCore.Liquid"
+      ]
+    },
+    {
+      "name": "themes",
+      "Site": "Vfd.Theme"
+    },
+    {
+      "name": "Templates",
+      "Templates": {
+        "Content__LandingPage": {
+          "Description": "VFD Landing Page — Digital Workspace branding (#9)",
+          "Content": "[file:text('Snippets/landingpage.liquid')]"
+        }
+      }
+    }
+  ]
+}
