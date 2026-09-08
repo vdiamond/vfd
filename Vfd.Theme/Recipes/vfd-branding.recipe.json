@@ -1,10 +1,10 @@
 {
   "name": "VFD Branding",
   "displayName": "VFD Branding (Layout + LandingPage templates)",
-  "description": "Sets site theme to Vfd.Theme and updates Admin Liquid Templates for Layout (logo + branding CSS + static footer #12) and Content__LandingPage (Digital Workspace copy, LinkedIn href fix, Victor avatar #12). Re-run after deploy if Layout/LandingPage templates are stale. Does not wipe content bags.",
+  "description": "Sets site theme to Vfd.Theme and updates Admin Liquid Templates for Layout (logo + branding CSS + static footer #12) and Content__LandingPage (Digital Workspace copy, LinkedIn href fix, Victor avatar #12). CSS v1.2.1 beats Agency #mainNav logo height and un-flexes .flow for Page body. Re-run after deploy if Layout/LandingPage templates are stale. Does not wipe content bags.",
   "author": "Value From Digital",
   "website": "https://valuefromdigital.com",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "issetuprecipe": false,
   "categories": [ "vfd", "branding" ],
   "tags": [ "vfd", "theme", "landingpage", "layout" ],
