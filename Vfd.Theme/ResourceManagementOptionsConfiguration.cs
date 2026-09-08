@@ -14,7 +14,7 @@ public sealed class ResourceManagementOptionsConfiguration : IConfigureOptions<R
         Manifest
             .DefineStyle("Vfd.Theme.Branding")
             .SetUrl("~/Vfd.Theme/css/vfd-branding.css")
-            .SetVersion("1.0.0");
+            .SetVersion("1.2.0");
     }
 
     public void Configure(ResourceManagementOptions options)
