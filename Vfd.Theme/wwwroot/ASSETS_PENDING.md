@@ -14,6 +14,12 @@ These binaries are prepared on the agent box at `/workspace/vfd-work/Vfd.Theme/w
 | `Vfd.Theme/wwwroot/Favicons/iphone.png` | `.../For Web/Favicons/iPhone.png` |
 | `Vfd.Theme/wwwroot/favicon.png` | same as browser.png |
 
-SVGs (`logo-color.svg`, `logo-white.svg`) are text and should be in this PR via MCP.
+## Logo SVGs in this PR
 
-After cloning the branch locally: `cp` the files above into place and `git add` / commit / push to the feature branch.
+`logo-white.svg` / `logo-color.svg` are **compact wordmarks** so MCP text push works. Full emblem pack SVGs (minified) are on the agent box as:
+
+- `/workspace/vfd-work/Vfd.Theme/wwwroot/img/logo-white.full.svg`
+- `/workspace/vfd-work/Vfd.Theme/wwwroot/img/logo-color.full.svg`
+- Original pack: `/workspace/vfd-emblem/valuefromdigital/logos/For Web/svg/`
+
+Please replace the compact files with the full emblems when pushing binaries from a machine with `gh` auth.
