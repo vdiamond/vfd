@@ -1,4 +1,4 @@
-/* VFD branding overrides on TheAgencyTheme — v1.2.0 (#12) */
+/* VFD branding overrides on TheAgencyTheme — v1.2.1 (#12 follow-up) */
 
 :root {
   --bs-primary: #FF774A;
@@ -112,19 +112,29 @@ header.masthead {
   background-repeat: no-repeat;
 }
 
-/* #12: double logo height (was 2rem / 2.5rem at lg); raise max-width */
-.navbar-brand img.vfd-logo {
-  height: 4rem;
-  width: auto;
+/*
+ * Logo size (#12 follow-up):
+ * Agency sets `#mainNav .navbar-brand img { height: 1.5rem }` and at lg `2rem`
+ * (plus shrink `1.5rem`). That ID selector beat `.navbar-brand img.vfd-logo`,
+ * so the doubled heights in v1.2.0 never won. Match/beat Agency specificity.
+ */
+#mainNav .navbar-brand img.vfd-logo {
+  height: 4rem !important;
+  width: auto !important;
   max-width: 440px;
   display: inline-block;
   vertical-align: middle;
 }
 
 @media (min-width: 992px) {
-  .navbar-brand img.vfd-logo {
-    height: 5rem;
+  #mainNav .navbar-brand img.vfd-logo {
+    height: 5rem !important;
   }
+}
+
+#mainNav.navbar-shrink .navbar-brand img.vfd-logo,
+#mainNav.navbar-shrink .navbar-brand svg.vfd-logo {
+  height: 3.5rem !important;
 }
 
 /* #12: circular center-crop friendly team photo */
@@ -141,4 +151,50 @@ header.masthead {
   margin: 0.35rem;
 }
 
-/* Cache-bust: bump ResourceManagement + recipe to 1.2.0 with this CSS */
+/*
+ * Page body layout (#12 follow-up):
+ * Orchard bootstrap-oc defines `.flow { display: flex; flex-wrap: wrap; }`
+ * (row gutters). Privacy/Terms HtmlBody is wrapped in `<section class="flow">`,
+ * so h1/h2/p/ul sit as flex items in a row and concatenate visually.
+ * Restore normal block document flow; do not change CMS copy.
+ */
+section.flow,
+.flow {
+  display: block !important;
+  flex-wrap: unset !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  margin-top: 0 !important;
+}
+
+.flow > h1,
+.flow > h2,
+.flow > h3,
+.flow > h4,
+.flow > h5,
+.flow > h6,
+.flow > p,
+.flow > ul,
+.flow > ol,
+.flow > blockquote,
+.flow > pre,
+.flow > table,
+.flow > hr,
+.flow > div {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  flex: none;
+}
+
+.flow > ul,
+.flow > ol {
+  padding-left: 1.25rem;
+}
+
+.flow > ul > li,
+.flow > ol > li {
+  display: list-item;
+}
+
+/* Cache-bust: bump ResourceManagement + recipe with this CSS */
