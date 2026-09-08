@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="OrchardCore.Theme.Targets" Version="3.0.1" />
+    <PackageReference Include="OrchardCore.DisplayManagement" Version="3.0.1" />
+    <PackageReference Include="OrchardCore.ResourceManagement.Abstractions" Version="3.0.1" />
+    <PackageReference Include="TheAgencyTheme" Version="3.0.1" />
+  </ItemGroup>
+
+</Project>
