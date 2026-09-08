@@ -1,4 +1,109 @@
-/* VFD branding overrides on TheAgencyTheme */
+/* VFD branding overrides on TheAgencyTheme — v1.2.0 (#12) */
+
+:root {
+  --bs-primary: #FF774A;
+  --bs-primary-rgb: 255, 119, 74;
+  --bs-link-color: #FF774A;
+  --bs-link-hover-color: #e5663a;
+  --bs-link-color-rgb: 255, 119, 74;
+  --bs-link-hover-color-rgb: 229, 102, 58;
+  --vfd-orange: #FF774A;
+  --vfd-orange-rgb: 255, 119, 74;
+}
+
+/* Override Agency yellow (#ffc800) / Bootstrap primary everywhere */
+a:not(.btn):not(.nav-link):not(.navbar-brand):not(.dropdown-item):not(.page-link) {
+  color: #FF774A;
+}
+a:not(.btn):not(.nav-link):not(.navbar-brand):not(.dropdown-item):not(.page-link):hover,
+a:not(.btn):not(.nav-link):not(.navbar-brand):not(.dropdown-item):not(.page-link):focus {
+  color: #e5663a;
+}
+
+.text-primary {
+  --bs-text-opacity: 1;
+  color: #FF774A !important;
+}
+
+.btn-primary {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #FF774A;
+  --bs-btn-border-color: #FF774A;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #e5663a;
+  --bs-btn-hover-border-color: #d85c32;
+  --bs-btn-focus-shadow-rgb: 255, 119, 74;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #d85c32;
+  --bs-btn-active-border-color: #cc552e;
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #FF774A;
+  --bs-btn-disabled-border-color: #FF774A;
+  color: #fff !important;
+  background-color: #FF774A !important;
+  border-color: #FF774A !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.show > .btn-primary.dropdown-toggle {
+  color: #fff !important;
+  background-color: #e5663a !important;
+  border-color: #d85c32 !important;
+}
+
+.btn-outline-primary {
+  --bs-btn-color: #FF774A;
+  --bs-btn-border-color: #FF774A;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #FF774A;
+  --bs-btn-hover-border-color: #FF774A;
+  --bs-btn-focus-shadow-rgb: 255, 119, 74;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #FF774A;
+  --bs-btn-active-border-color: #FF774A;
+  --bs-btn-disabled-color: #FF774A;
+  --bs-btn-disabled-bg: transparent;
+  --bs-btn-disabled-border-color: #FF774A;
+  color: #FF774A !important;
+  border-color: #FF774A !important;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus,
+.btn-outline-primary:active,
+.btn-outline-primary.active {
+  color: #fff !important;
+  background-color: #FF774A !important;
+  border-color: #FF774A !important;
+}
+
+.bg-primary {
+  --bs-bg-opacity: 1;
+  background-color: #FF774A !important;
+}
+
+.border-primary {
+  --bs-border-opacity: 1;
+  border-color: #FF774A !important;
+}
+
+/* Agency timeline / icon accents that used primary yellow */
+.fa-stack .fa-stack-2x.text-primary,
+.timeline > li .timeline-image,
+#mainNav .navbar-nav .nav-item .nav-link.active {
+  color: #FF774A !important;
+}
+
+.timeline > li .timeline-image {
+  background-color: #FF774A !important;
+}
+
+.portfolio .portfolio-item .portfolio-link .portfolio-hover {
+  background: rgba(255, 119, 74, 0.9) !important;
+}
 
 header.masthead {
   background-image: url("../img/hero-digital-workspace.png") !important;
@@ -7,21 +112,33 @@ header.masthead {
   background-repeat: no-repeat;
 }
 
+/* #12: double logo height (was 2rem / 2.5rem at lg); raise max-width */
 .navbar-brand img.vfd-logo {
-  height: 2rem;
+  height: 4rem;
   width: auto;
-  max-width: 220px;
+  max-width: 440px;
   display: inline-block;
   vertical-align: middle;
 }
 
 @media (min-width: 992px) {
   .navbar-brand img.vfd-logo {
-    height: 2.5rem;
+    height: 5rem;
   }
+}
+
+/* #12: circular center-crop friendly team photo */
+.team-member img {
+  width: 14rem;
+  height: 14rem;
+  object-fit: cover;
+  object-position: center center;
+  border-radius: 50%;
 }
 
 /* Contact CTA strip (replaces stock Send Message form) */
 .vfd-contact-cta .btn {
   margin: 0.35rem;
 }
+
+/* Cache-bust: bump ResourceManagement + recipe to 1.2.0 with this CSS */
