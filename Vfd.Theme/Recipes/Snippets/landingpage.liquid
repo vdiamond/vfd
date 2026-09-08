@@ -114,7 +114,11 @@
             {% for member in Model.ContentItem.Content.Team.ContentItems %}
             <div class="col-lg-4">
                 <div class="team-member">
-                    <img class="mx-auto rounded-circle" src="{{ member.TeamMember.Picture.Paths.first | asset_url | resize_url: profile: 'small', mode: 'stretch' }}" alt="">
+                    {% if member.DisplayText contains 'Victor' %}
+                    <img class="mx-auto rounded-circle" src="{{ '~/Vfd.Theme/img/team-victor-diamond.jpg' | href }}" alt="{{ member.DisplayText }}" />
+                    {% else %}
+                    <img class="mx-auto rounded-circle" src="{{ member.TeamMember.Picture.Paths.first | asset_url | resize_url: profile: 'small', mode: 'stretch' }}" alt="{{ member.DisplayText }}" />
+                    {% endif %}
                     <h4>{{ member.DisplayText }}</h4>
                     <p class="text-muted">{{ member.TeamMember.Occupation.Text }}</p>
                     {% if member.TeamMember.Twitter.Text.size > 0 %}
@@ -128,9 +132,16 @@
                     </a>
                     {% endif %}
                     {% if member.TeamMember.LinkedIn.Text.size > 0 %}
-                    <a class="btn btn-dark btn-social mx-2" href="https://www.linkedin.com/in/{{ member.TeamMember.LinkedIn.Text }}" aria-label="{{ member.DisplayText }} LinkedIn Profile">
+                    {% assign linkedin_raw = member.TeamMember.LinkedIn.Text %}
+                    {% if linkedin_raw contains 'http' %}
+                    <a class="btn btn-dark btn-social mx-2" href="{{ linkedin_raw }}" aria-label="{{ member.DisplayText }} LinkedIn Profile">
                         <i class="fab fa-linkedin"></i>
                     </a>
+                    {% else %}
+                    <a class="btn btn-dark btn-social mx-2" href="https://www.linkedin.com/in/{{ linkedin_raw }}" aria-label="{{ member.DisplayText }} LinkedIn Profile">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    {% endif %}
                     {% endif %}
                 </div>
             </div>
