@@ -1,0 +1,210 @@
+{% zone "Header" %}
+<!-- Header -->
+<header class="masthead">
+    <div class="container">
+        <div class="masthead-subheading">Welcome to our Digital Workspace</div>
+        <div class="masthead-heading text-uppercase">{{ Model.ContentItem | display_text }}</div>
+        <a class="btn btn-primary btn-xl text-uppercase" href="#services">See how we help</a>
+    </div>
+</header>
+{% endzone %}
+
+{% if Model.ContentItem.Content.Services.ContentItems.size > 0 %}
+<!-- Services -->
+<section class="page-section" id="services">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">Services</h2>
+            <h3 class="section-subheading text-muted">Practical help for government IT leaders under delivery, cost, and change pressure.</h3>
+        </div>
+        <div class="row text-center">
+            {% for service in Model.ContentItem.Content.Services.ContentItems %}
+            <div class="col-md-4">
+                <span class="fa-stack fa-4x">
+                    <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                    <i class="fas {{ service.Service.IconClass.Text }} fa-stack-1x fa-inverse"></i>
+                </span>
+                <h4 class="service-heading">{{ service.DisplayText }}</h4>
+                <p class="text-muted">{{ service.HtmlBodyPart.Html | raw }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% if Model.ContentItem.Content.Portfolio.ContentItems.size > 0 %}
+<!-- Portfolio Grid -->
+<section class="page-section bg-light" id="portfolio">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">Portfolio</h2>
+            <h3 class="section-subheading text-muted"></h3>
+        </div>
+        <div class="row">
+            {% for project in Model.ContentItem.Content.Portfolio.ContentItems %}
+            <div class="col-lg-4 col-sm-6 mb-4">
+                <div class="portfolio-item">
+                    <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal{{ forloop.index }}">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                        </div>
+                        <img class="img-fluid" src="{{ project.Project.Image.Paths.first | asset_url | resize_url: profile: 'medium', mode: 'stretch' }}" alt="{{ project.DisplayText }}" />
+                    </a>
+                    <div class="portfolio-caption">
+                        <div class="portfolio-caption-heading">{{ project.DisplayText }}</div>
+                        <div class="portfolio-caption-subheading text-muted">{{ project.Project.Category.Text }}</div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% if Model.ContentItem.Content.About.ContentItems.size > 0 %}
+<!-- About -->
+<section class="page-section" id="about">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">About</h2>
+            <h3 class="section-subheading text-muted">Built to help you succeed — plain talk, measurable outcomes.</h3>
+        </div>
+        <ul class="timeline">
+            {% for milestone in Model.ContentItem.Content.About.ContentItems %}
+            <li class="{% cycle '', 'timeline-inverted' %}">
+                <div class="timeline-image">
+                    <img class="rounded-circle img-fluid" src="{{ milestone.Milestone.Image.Paths.first | asset_url | resize_url: profile: 'extrasmall', mode: 'stretch' }}" alt="">
+                </div>
+                <div class="timeline-panel">
+                    <div class="timeline-heading">
+                        <h4>{{ milestone.Milestone.Date.Text }}</h4>
+                        <h4 class="subheading">{{ milestone.DisplayText }}</h4>
+                    </div>
+                    <div class="timeline-body">
+                        <p class="text-muted">{{ milestone.HtmlBodyPart.Html | raw }}</p>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+            <li class="timeline-inverted">
+                <div class="timeline-image">
+                    <h4>
+                        Ready to
+                        <br>talk about
+                        <br>readiness?
+                    </h4>
+                </div>
+            </li>
+        </ul>
+    </div>
+</section>
+{% endif %}
+
+{% if Model.ContentItem.Content.Team.ContentItems.size > 0 %}
+<!-- Team -->
+<section class="page-section bg-light" id="team">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">Who leads the work</h2>
+            <h3 class="section-subheading text-muted">Direct, practical partnership — focused on measurable value.</h3>
+        </div>
+        <div class="row">
+            {% for member in Model.ContentItem.Content.Team.ContentItems %}
+            <div class="col-lg-4">
+                <div class="team-member">
+                    <img class="mx-auto rounded-circle" src="{{ member.TeamMember.Picture.Paths.first | asset_url | resize_url: profile: 'small', mode: 'stretch' }}" alt="">
+                    <h4>{{ member.DisplayText }}</h4>
+                    <p class="text-muted">{{ member.TeamMember.Occupation.Text }}</p>
+                    {% if member.TeamMember.Twitter.Text.size > 0 %}
+                    <a class="btn btn-dark btn-social mx-2" href="https://www.twitter.com/{{ member.TeamMember.Twitter.Text }}" aria-label="{{ member.DisplayText }} X (Twitter) Profile">
+                        <i class="fab fa-x-twitter"></i>
+                    </a>
+                    {% endif %}
+                    {% if member.TeamMember.Facebook.Text.size > 0 %}
+                    <a class="btn btn-dark btn-social mx-2" href="https://www.facebook.com/{{ member.TeamMember.Facebook.Text }}" aria-label="{{ member.DisplayText }} Facebook Profile">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    {% endif %}
+                    {% if member.TeamMember.LinkedIn.Text.size > 0 %}
+                    <a class="btn btn-dark btn-social mx-2" href="https://www.linkedin.com/in/{{ member.TeamMember.LinkedIn.Text }}" aria-label="{{ member.DisplayText }} LinkedIn Profile">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <p class="large text-muted">Victor Diamond works with Government of Canada IT Directors and CIO equivalents on readiness, strategy, delivery recovery, cost, operating model, and architecture that sits closer to the business.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% if Model.ContentItem.Content.Clients.ContentItems.size > 0 %}
+<!-- Clients -->
+<div class="py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            {% for client in Model.ContentItem.Content.Clients.ContentItems %}
+            <div class="col-md-3 col-sm-6 my-3">
+                <a href="{{ client.Client.Url.Text }}" aria-label="{{ client.DisplayText }}">
+                    <img class="img-fluid img-brand d-block mx-auto" src="{{ client.Client.Logo.Paths.first | asset_url }}" alt="">
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Contact — CTA strip (no Send Message form; mailto + LinkedIn) -->
+<section class="page-section" id="contact">
+    <div class="container">
+        <div class="text-center vfd-contact-cta">
+            <h2 class="section-heading text-uppercase">Start a conversation</h2>
+            <h3 class="section-subheading text-muted">Tell us what is under pressure. We will respond plainly about fit.</h3>
+            <a class="btn btn-primary btn-xl text-uppercase" href="mailto:sales@valuefromdigital.com">Email sales@valuefromdigital.com</a>
+            <a class="btn btn-outline-light btn-xl text-uppercase" href="https://www.linkedin.com/in/victor-diamond-0a5b81/" target="_blank" rel="noopener noreferrer">Message Victor on LinkedIn</a>
+        </div>
+    </div>
+</section>
+
+<!-- Modals -->
+{% for project in Model.ContentItem.Content.Portfolio.ContentItems %}
+<div class="portfolio-modal modal fade" id="portfolioModal{{ forloop.index }}" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="close-modal" data-bs-dismiss="modal"><img src="/TheAgencyTheme/assets/img/close-icon.svg" alt="Close modal" /></div>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="modal-body">
+                            <!-- Project Details Go Here -->
+                            <h2 class="text-uppercase">{{ project.DisplayText }}</h2>
+                            <p class="item-intro text-muted">{{ project.Project.Category.Text }}</p>
+                            <img class="img-fluid d-block mx-auto" src="{{ project.Project.Image.Paths.first | asset_url | resize_url: profile: 'medium', mode: 'max' }}" alt="{{ project.DisplayText }}">
+                            <p>{{ project.HtmlBodyPart.Html | raw }}</p>
+                            {% comment %}
+                            <ul class="list-inline">
+                                <li>Date: January 2017</li>
+                                <li>Client: Threads</li>
+                                <li>Category: Illustration</li>
+                            </ul>
+                            {% endcomment %}
+                            <button class="btn btn-primary" data-bs-dismiss="modal" type="button">
+                                <i class="fa fa-times me-1"></i>
+                                Close Project
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
