@@ -1,6 +1,6 @@
 # Terms of Use
 
-**Status:** draft for Victor review — **do not publish** until explicitly approved  
+**Status:** approved for publish (Victor 2026-09-08); jurisdiction Ottawa, Ontario, Canada  
 **Entity:** Value From Digital Inc.  
 **Site:** https://valuefromdigital.com  
 **Proposed path:** `/terms`  
@@ -55,8 +55,8 @@ We may update these Terms from time to time. Continued use of the Site after cha
 
 ## Governing law
 
-These Terms are governed by the laws of Canada and the province or territory in which Value From Digital Inc. is organized, without regard to conflict-of-law rules. Courts in that jurisdiction will have exclusive venue, except where applicable law requires otherwise.
+These Terms are governed by the laws of the Province of Ontario and the federal laws of Canada applicable therein, without regard to conflict-of-law rules. You agree that the courts of Ottawa, Ontario, Canada have exclusive jurisdiction and venue over any dispute arising from these Terms or your use of the Site, except where applicable law requires otherwise.
 
 ---
 
-*Draft stock terms for internal review. Not legal advice. Victor should confirm governing law/venue and any engagement-specific language before publish.*
+*Approved for publish (Victor). Jurisdiction: Ottawa, Ontario, Canada.*

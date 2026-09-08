@@ -1,6 +1,6 @@
 # Privacy Policy
 
-**Status:** draft for Victor review — **do not publish** until explicitly approved  
+**Status:** approved for publish (Victor 2026-09-08); jurisdiction Ottawa, Ontario, Canada  
 **Entity:** Value From Digital Inc.  
 **Site:** https://valuefromdigital.com  
 **Proposed path:** `/privacy`  
@@ -59,4 +59,4 @@ We may update this policy from time to time. The effective date above will chang
 
 ---
 
-*Draft stock policy for internal review. Not legal advice. Victor should confirm jurisdiction, retention, and any analytics/marketing tools before publish.*
+*Approved for publish. Stock policy; update if analytics/marketing tools are added later.*
