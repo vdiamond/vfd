@@ -2,6 +2,8 @@
 
 **Value From Digital** — Orchard Core CMS for [valuefromdigital.com](https://valuefromdigital.com).
 
+Agent guidance: [AGENTS.md](AGENTS.md).
+
 ## Architecture (Option C)
 
 - **Default** tenant: Agency recipe + `OrchardCore.Tenants` (not the SaaS recipe).
@@ -46,6 +48,8 @@ GitHub Actions CI (restore → build → test if present → publish → upload 
 - `Vfd.Web/` — Orchard Core CMS web app (`occms` template, Orchard 3.0.1)
 - `Vfd.Theme/` — VFD branding theme (bases on TheAgencyTheme): logo, favicons, digital hero, Digital Workspace landing Liquid + branding recipe
 - `.github/workflows/ci.yml` — CI build/publish
+- `.github/workflows/deploy-prod.yml` — manual SmarterASP WebDeploy (`workflow_dispatch` only). Secrets are referenced by name only (`WEBSITE_NAME`, `SERVER_COMPUTER_NAME`, `SERVER_USERNAME`, `SERVER_PASSWORD`)
+- `ci/github-actions-ci.yml` — pointer to `.github/workflows/ci.yml` (not a workflow GitHub runs)
 
 ## Branding / theme (#9)
 
