@@ -60,3 +60,7 @@ Live Agency leftovers are in the Liquid template `Content__LandingPage` (not CMS
 3. Require Victor **APPROVE DEPLOY** before production.
 
 Copy source of truth: Jess comment on issue #9 (Digital Workspace strings).
+
+## License
+
+MIT. See [LICENSE](LICENSE).
